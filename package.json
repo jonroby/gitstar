@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "prettier": "^1.16.4",
     "react-scripts": "2.1.5"
   },
   "dependencies": {
@@ -15,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write --trailing-comma es5 \"./src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
