@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import App from "./App";
+import Repos from "./Repos";
 
 class Routes extends Component {
   render() {
@@ -9,6 +10,7 @@ class Routes extends Component {
         <React.Fragment>
           <Switch>
             <Route path="/" component={App} exact />
+            <Route path="/repos" component={Repos} />
           </Switch>
         </React.Fragment>
       </BrowserRouter>
