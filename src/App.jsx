@@ -1,25 +1,27 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
-import { gql } from "apollo-boost";
 
-const TEST_QUERY = gql`
-  query {
-    repository(owner: "jonroby", name: "gitstar") {
-      name
-    }
-  }
-`;
+const url = "https:github.com/login/oauth/authorize?";
+
+const parameters = {
+  client_id: "10b97d81586a1752ae65",
+  type: "user_agent",
+  redirect_uri: "https://gitstarhub.herokuapp.com/oauth",
+  scope: "public_repo"
+};
+
+const parameterString = Object.keys(parameters).reduce((prev, curr) => {
+  if (prev === "") return `${curr}=${parameters[curr]}`;
+  return `${prev}&${curr}=${parameters[curr]}`;
+}, "");
 
 class App extends Component {
   render() {
+    const link = `${url}${parameterString}`;
+
     return (
       <div className="App">
-        Gitstar
-        <Query query={TEST_QUERY}>
-          {({ loading, data }) => {
-            return !loading && <div>Hello Apollo</div>;
-          }}
-        </Query>
+        <div>Gitstar</div>
+        <a href={link}>Oauth</a>
       </div>
     );
   }
