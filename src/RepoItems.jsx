@@ -12,12 +12,12 @@ const renderPagination = pageInfo => {
   return (
     <div>
       {pageInfo.hasPreviousPage ? (
-        <Link to={`/repos?page=${pageInfo.startCursor}`}>Previous</Link>
+        <Link to={`/starred?page=${pageInfo.startCursor}`}>Previous</Link>
       ) : (
         <div>No Previous</div>
       )}
       {pageInfo.hasNextPage ? (
-        <Link to={`/repos?page=${pageInfo.endCursor}`}>Next</Link>
+        <Link to={`/starred?page=${pageInfo.endCursor}`}>Next</Link>
       ) : (
         <div>No Next</div>
       )}
