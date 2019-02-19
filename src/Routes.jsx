@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import App from "./App";
 import OAuth from "./OAuth";
 import Repos from "./Repos";
+import Search from "./Search";
 
 class Routes extends Component {
   render() {
@@ -12,7 +13,8 @@ class Routes extends Component {
           <Switch>
             <Route path="/" component={App} exact />
             <Route path="/oauth" component={OAuth} />
-            <Route path="/repos" component={Repos} />
+            <Route path="/starred" component={Repos} />
+            <Route path="/search" component={Search} />
           </Switch>
         </React.Fragment>
       </BrowserRouter>
