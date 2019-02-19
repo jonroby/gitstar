@@ -11,7 +11,7 @@ const formatDate = date => {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
   const newDate = new Date(date);
 

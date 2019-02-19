@@ -8,7 +8,7 @@ const READY = "READY";
 
 class OAuth extends Component {
   state = {
-    status: LOADING
+    status: LOADING,
   };
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class OAuth extends Component {
     const { data: response } = await axios.post(
       "https://peaceful-meadow-82053.herokuapp.com",
       {
-        code
+        code,
       }
     );
 

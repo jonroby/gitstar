@@ -9,7 +9,7 @@ import SEARCH_REPOS from "./queries/searchRepos";
 const accessToken = localStorage.getItem("access_token");
 
 const client = new ApolloClient({
-  uri: `https://api.github.com/graphql?access_token=${accessToken}`
+  uri: `https://api.github.com/graphql?access_token=${accessToken}`,
 });
 
 class Search extends Component {
