@@ -8,7 +8,7 @@ import ListItem from "./ListItem";
 const accessToken = localStorage.getItem("access_token");
 
 const client = new ApolloClient({
-  uri: `https://api.github.com/graphql?access_token=${accessToken}`
+  uri: `https://api.github.com/graphql?access_token=${accessToken}`,
 });
 
 const STARRED_REPOS = cursor => {
