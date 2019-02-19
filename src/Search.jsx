@@ -4,7 +4,7 @@ import {
   SearchContainer,
   SearchInputContainer,
   Input,
-  SearchButton
+  SearchButton,
 } from "./SearchStyles.js";
 
 class Search extends Component {
