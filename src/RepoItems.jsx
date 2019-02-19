@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components/macro";
 import RepoItem from "./RepoItem";
 
 const renderRepos = repos => {
@@ -25,12 +26,18 @@ const renderPagination = pageInfo => {
   );
 };
 
+const RepoItemsContainer = styled.div`
+  max-width: 800px;
+  border-left: 1px solid #e1e4e8;
+  border-right: 1px solid #e1e4e8;
+`;
+
 const RepoItems = ({ repos, pageInfo }) => {
   return (
-    <React.Fragment>
+    <RepoItemsContainer>
       {renderRepos(repos)}
       {renderPagination(pageInfo)}
-    </React.Fragment>
+    </RepoItemsContainer>
   );
 };
 
