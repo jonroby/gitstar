@@ -1,55 +1,45 @@
-import React, { Component } from "react";
-import { ApolloProvider, Query } from "react-apollo";
-import ApolloClient from "apollo-boost";
+import React from "react";
+import { Query } from "react-apollo";
 import queryString from "query-string";
+import styled from "styled-components";
 import RepoItems from "./RepoItems";
-import STARRED_REPOS from "./queries/starredRepos";
+import searchRepos from "./queries/searchRepos";
+import starredRepos from "./queries/starredRepos";
 
-const accessToken = localStorage.getItem("access_token");
+const H1 = styled.h1`
+  color: #263238;
+  font-size: 28px;
+`;
 
-const client = new ApolloClient({
-  uri: `https://api.github.com/graphql?access_token=${accessToken}`,
-});
+const render = transformer => ({ loading, data }) => {
+  if (loading) return <div>Loading</div>;
+  const { repos, pageInfo } = transformer(data);
+  return <RepoItems repos={repos} pageInfo={pageInfo} />;
+};
 
-class Repos extends Component {
-  componentDidMount() {
-    if (!accessToken) {
-      this.props.history.push("/");
-    }
-  }
+const Repos = props => {
+  const values = queryString.parse(props.location.search);
+  const query = values.query || "";
+  const page = values.page || false;
 
-  render() {
-    const values = queryString.parse(this.props.location.search);
-    const page = values.page || false;
+  const { pathname } = props.location;
+  const map = {
+    "/search": searchRepos,
+    "/starred": starredRepos,
+  };
 
-    return (
-      <ApolloProvider client={client}>
-        <div>
-          Repos
-          <Query query={STARRED_REPOS(page)}>
-            {({ loading, data }) => {
-              const starredRepositories =
-                data &&
-                data.viewer &&
-                data.viewer.starredRepositories &&
-                data.viewer.starredRepositories;
+  const mapTitle = {
+    "/search": "Search Results",
+    "/starred": "Your Starred Repos",
+  };
 
-              if (!loading) {
-                return (
-                  <RepoItems
-                    repos={starredRepositories.nodes}
-                    pageInfo={starredRepositories.pageInfo}
-                  />
-                );
-              }
-
-              return <div>Loading</div>;
-            }}
-          </Query>
-        </div>
-      </ApolloProvider>
-    );
-  }
-}
+  const handler = map[pathname];
+  return (
+    <div>
+      <H1>{mapTitle[pathname]}</H1>
+      <Query query={handler.query(query)}>{render(handler.transformer)}</Query>
+    </div>
+  );
+};
 
 export default Repos;

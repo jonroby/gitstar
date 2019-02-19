@@ -1,8 +1,12 @@
 import { gql } from "apollo-boost";
 
-const SEARCH_REPOS = query => gql`
+const transformer = data => {
+  return { repos: data.search.nodes, pageInfo: data.search.pageInfo };
+};
+
+const query = q => gql`
   query {
-    search(query: "${query}", first: 20, type: REPOSITORY) {
+    search(query: "${q}", first: 20, type: REPOSITORY) {
       pageInfo {
         endCursor
         hasNextPage
@@ -34,4 +38,4 @@ const SEARCH_REPOS = query => gql`
     }
   }`;
 
-export default SEARCH_REPOS;
+export default { query, transformer };

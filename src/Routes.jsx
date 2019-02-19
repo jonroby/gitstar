@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ApolloProvider } from "react-apollo";
+import ApolloClient from "apollo-boost";
 import styled from "styled-components/macro";
 import Navbar from "./Navbar";
 import App from "./App";
@@ -14,7 +16,7 @@ const AppContainer = styled.div`
 `;
 
 const Content = styled.div`
-  padding-top: 60px;
+  padding-top: 120px;
   flex-grow: 1;
   max-width: 800px;
 `;
@@ -22,10 +24,16 @@ const Content = styled.div`
 class Routes extends Component {
   render() {
     const accessToken = localStorage.getItem("access_token");
+    const client = accessToken
+      ? new ApolloClient({
+          uri: `https://api.github.com/graphql?access_token=${accessToken}`,
+        })
+      : null;
     return (
       <BrowserRouter>
         <AppContainer>
           <Route component={Navbar} />
+
           <Content>
             {!accessToken ? (
               <Switch>
@@ -33,14 +41,13 @@ class Routes extends Component {
                 <Route path="/oauth" component={OAuth} />
               </Switch>
             ) : (
-              <React.Fragment>
-                <Route component={Search} />
+              <ApolloProvider client={client}>
                 <Switch>
                   <Route path="/" component={Repos} />
                   <Route path="/starred" component={Repos} />
-                  <Route path="/search" component={Search} />
+                  <Route path="/search" component={Repos} />
                 </Switch>
-              </React.Fragment>
+              </ApolloProvider>
             )}
           </Content>
         </AppContainer>

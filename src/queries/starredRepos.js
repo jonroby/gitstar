@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-const STARRED_REPOS = cursor => {
+const query = cursor => {
   const cursorPresent = cursor ? `, after: "${cursor}"` : "";
   return gql`
     query {
@@ -40,4 +40,16 @@ viewerHasStarred
     }`;
 };
 
-export default STARRED_REPOS;
+const transformer = data => {
+  const starredRepositories =
+    data &&
+    data.viewer &&
+    data.viewer.starredRepositories &&
+    data.viewer.starredRepositories;
+  return {
+    repos: starredRepositories.nodes,
+    pageInfo: starredRepositories.pageInfo,
+  };
+};
+
+export default { query, transformer };
