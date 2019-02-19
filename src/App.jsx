@@ -6,7 +6,7 @@ const parameters = {
   client_id: "10b97d81586a1752ae65",
   type: "user_agent",
   redirect_uri: "https://gitstarhub.herokuapp.com/oauth",
-  scope: "public_repo"
+  scope: "public_repo",
 };
 
 const parameterString = Object.keys(parameters).reduce((prev, curr) => {
