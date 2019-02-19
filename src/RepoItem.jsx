@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class ListItem extends Component {
+class RepoItem extends Component {
   render() {
     const { metadata } = this.props;
     return (
@@ -20,4 +20,4 @@ class ListItem extends Component {
   }
 }
 
-export default ListItem;
+export default RepoItem;
