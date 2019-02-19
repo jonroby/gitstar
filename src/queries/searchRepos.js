@@ -2,7 +2,7 @@ import { gql } from "apollo-boost";
 
 const SEARCH_REPOS = query => gql`
   query {
-    search(query: "${query}", first: 2, type: REPOSITORY) {
+    search(query: "${query}", first: 20, type: REPOSITORY) {
       pageInfo {
         endCursor
         hasNextPage

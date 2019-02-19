@@ -5,7 +5,7 @@ const STARRED_REPOS = cursor => {
   return gql`
     query {
       viewer {
-        starredRepositories(ownedByViewer: false, first: 2, ${cursorPresent}) {
+        starredRepositories(ownedByViewer: false, first: 20, ${cursorPresent}) {
           pageInfo {
 	    startCursor
 	    endCursor
