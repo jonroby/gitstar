@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-const url = "https:github.com/login/oauth/authorize?";
+const url = "https://github.com/login/oauth/authorize?";
 
 const parameters = {
   client_id: "10b97d81586a1752ae65",
