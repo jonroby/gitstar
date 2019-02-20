@@ -7,7 +7,6 @@ const transformer = data => {
 const fetchMoreObject = (searchTerm, cursor) => ({
   query: query(searchTerm, cursor),
   updateQuery: (previousResult, { fetchMoreResult }) => {
-    console.log("searchTerm ", searchTerm);
     const repos = previousResult.search.nodes;
     const moreResults = transformer(fetchMoreResult);
     return {

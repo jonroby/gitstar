@@ -67,7 +67,6 @@ const transformer = data => {
     data.viewer.starredRepositories &&
     data.viewer.starredRepositories;
 
-  console.log("starredRepositories ", starredRepositories);
   return {
     repos: starredRepositories.nodes,
     pageInfo: starredRepositories.pageInfo

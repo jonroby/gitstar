@@ -39,8 +39,8 @@ const Repos = props => {
     "/starred": "Your Starred Repos"
   };
 
-  const handler = map[pathname] || map["/Starred"];
-  const title = mapTitle[pathname] || mapTitle["/Starred"];
+  const handler = map[pathname] || map["/starred"];
+  const title = mapTitle[pathname] || mapTitle["/starred"];
   return (
     <div>
       <H1>{title}</H1>
