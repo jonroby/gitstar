@@ -28,7 +28,31 @@ const Inner = styled.div`
   align-items: center;
 `;
 
+const Button = styled.button`
+  background-color: hsla(0, 0%, 100%, 0.125);
+  color: #f1f1f1;
+  font-size: 14px;
+  font-weight: 500;
+
+  border-radius: 3px;
+  height: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
+  &:hover {
+    cursor: pointer;
+    color: #3c4146;
+    background-color: #fafafa;
+  }
+  &:focus {
+    outline: 0px;
+  }
+`;
+
 class Navbar extends Component {
+  onClick = () => {
+    localStorage.removeItem("access_token");
+  };
+
   render() {
     const accessToken = localStorage.getItem("access_token");
     return (
@@ -43,9 +67,7 @@ class Navbar extends Component {
               <img style={{ width: "45px" }} src={Octostar} />
             </Link>
 
-            <div>
-              <button>Logout</button>
-            </div>
+            {accessToken ? <Button>Logout</Button> : null}
           </Inner>
         </NavbarRow>
         {accessToken ? <Search /> : null}

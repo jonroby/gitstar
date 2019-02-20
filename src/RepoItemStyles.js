@@ -8,8 +8,12 @@ const IconSt = styled.div`
 
 const RepoItemContainer = styled.div`
   padding: 20px;
-  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   background-color: white;
+  &:nth-child(1) {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
 `;
 
 const Row = styled.div`

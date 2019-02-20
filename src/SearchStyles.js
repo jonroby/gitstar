@@ -28,6 +28,10 @@ const Input = styled.input`
   width: 250px;
   padding-left: 10px;
   padding-right: 10px;
+  &:focus {
+    outline: 0px;
+    border: 1px solid #4078c0;
+  }
 `;
 
 const SearchButton = styled.button`
@@ -42,6 +46,13 @@ const SearchButton = styled.button`
   height: 35px;
   padding-left: 10px;
   padding-right: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: #fafafa;
+  }
+  &:focus {
+    outline: 0px;
+  }
 `;
 
 export { SearchContainer, SearchInputContainer, Input, SearchButton };
