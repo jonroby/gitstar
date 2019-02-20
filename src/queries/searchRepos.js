@@ -4,9 +4,28 @@ const transformer = data => {
   return { repos: data.search.nodes, pageInfo: data.search.pageInfo };
 };
 
-const query = q => gql`
+const fetchMoreObject = (searchTerm, cursor) => ({
+  query: query(searchTerm, cursor),
+  updateQuery: (previousResult, { fetchMoreResult }) => {
+    console.log("searchTerm ", searchTerm);
+    const repos = previousResult.search.nodes;
+    const moreResults = transformer(fetchMoreResult);
+    return {
+      cursor: moreResults.pageInfo.endCursor,
+      search: {
+        nodes: [...repos, ...moreResults.repos],
+        pageInfo: moreResults.pageInfo,
+        __typename: fetchMoreResult.search.__typename
+      }
+    };
+  }
+});
+
+const query = (searchTerm, cursor) => {
+  const cursorParameter = cursor ? `, after: "${cursor}"` : "";
+  return gql`
   query {
-    search(query: "${q}", first: 20, type: REPOSITORY) {
+    search(query: "${searchTerm}", first: 3, type: REPOSITORY ${cursorParameter}) {
       pageInfo {
         endCursor
         hasNextPage
@@ -37,5 +56,6 @@ const query = q => gql`
       }
     }
   }`;
+};
 
-export default { query, transformer };
+export default { query, transformer, fetchMoreObject };

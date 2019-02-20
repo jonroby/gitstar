@@ -4,7 +4,7 @@ import {
   SearchContainer,
   SearchInputContainer,
   Input,
-  SearchButton,
+  SearchButton
 } from "./SearchStyles.js";
 
 class Search extends Component {
@@ -15,12 +15,19 @@ class Search extends Component {
     this.setState({ input: event.target.value });
   };
 
+  componentDidMount() {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      this.props.router.push("/");
+    }
+  }
+
   render() {
     return (
       <div>
         <SearchContainer>
           <SearchInputContainer>
-            <Link to={`/search?query=${this.state.input}`}>
+            <Link to={`/search?searchTerm=${this.state.input}`}>
               <SearchButton>Search Repos</SearchButton>
             </Link>
             <Input

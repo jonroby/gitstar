@@ -7,7 +7,6 @@ import Navbar from "./Navbar";
 import App from "./App";
 import OAuth from "./OAuth";
 import Repos from "./Repos";
-import Search from "./Search";
 
 const AppContainer = styled.div`
   width: 100%;
@@ -26,14 +25,13 @@ class Routes extends Component {
     const accessToken = localStorage.getItem("access_token");
     const client = accessToken
       ? new ApolloClient({
-          uri: `https://api.github.com/graphql?access_token=${accessToken}`,
+          uri: `https://api.github.com/graphql?access_token=${accessToken}`
         })
       : null;
     return (
       <BrowserRouter>
         <AppContainer>
           <Route component={Navbar} />
-
           <Content>
             {!accessToken ? (
               <Switch>
@@ -43,9 +41,9 @@ class Routes extends Component {
             ) : (
               <ApolloProvider client={client}>
                 <Switch>
-                  <Route path="/" component={Repos} />
-                  <Route path="/starred" component={Repos} />
                   <Route path="/search" component={Repos} />
+                  <Route path="/starred" component={Repos} />
+                  <Route component={Repos} />
                 </Switch>
               </ApolloProvider>
             )}
