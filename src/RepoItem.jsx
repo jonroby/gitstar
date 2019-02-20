@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
-import { gql } from "apollo-boost";
 import styled from "styled-components/macro";
 import simpleIcons from "simple-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled from "styled-components/macro";
 import RepoItem from "./RepoItem";
 
@@ -9,33 +8,16 @@ const renderRepos = repos => {
   });
 };
 
-const renderPagination = pageInfo => {
-  return (
-    <div>
-      {pageInfo.hasPreviousPage ? (
-        <Link to={`/starred?page=${pageInfo.startCursor}`}>Previous</Link>
-      ) : (
-        <div>No Previous</div>
-      )}
-      {pageInfo.hasNextPage ? (
-        <Link to={`/starred?page=${pageInfo.endCursor}`}>Next</Link>
-      ) : (
-        <div>No Next</div>
-      )}
-    </div>
-  );
-};
-
 const RepoItemsContainer = styled.div`
   border-left: 1px solid #e1e4e8;
   border-right: 1px solid #e1e4e8;
 `;
 
-const RepoItems = ({ repos, pageInfo }) => {
+const RepoItems = ({ repos, hasNextPage, onLoadMore }) => {
   return (
     <RepoItemsContainer>
       {renderRepos(repos)}
-      {renderPagination(pageInfo)}
+      {hasNextPage ? <button onClick={onLoadMore}>Load More</button> : null}
     </RepoItemsContainer>
   );
 };

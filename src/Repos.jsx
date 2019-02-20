@@ -11,33 +11,42 @@ const H1 = styled.h1`
   font-size: 28px;
 `;
 
-const render = transformer => ({ loading, data }) => {
+const render = (handler, searchTerm) => ({ loading, data, fetchMore }) => {
   if (loading) return <div>Loading</div>;
-  const { repos, pageInfo } = transformer(data);
-  return <RepoItems repos={repos} pageInfo={pageInfo} />;
+  const { repos, pageInfo } = handler.transformer(data);
+  const args = { searchTerm, cursor: pageInfo.endCursor };
+  return (
+    <RepoItems
+      onLoadMore={() => fetchMore(handler.fetchMoreObject(args))}
+      repos={repos}
+      hasNextPage={pageInfo.hasNextPage}
+    />
+  );
 };
 
 const Repos = props => {
   const values = queryString.parse(props.location.search);
-  const query = values.query || "";
-  const page = values.page || false;
-
+  const searchTerm = values.searchTerm || "";
   const { pathname } = props.location;
+
   const map = {
     "/search": searchRepos,
-    "/starred": starredRepos,
+    "/starred": starredRepos
   };
 
   const mapTitle = {
     "/search": "Search Results",
-    "/starred": "Your Starred Repos",
+    "/starred": "Your Starred Repos"
   };
 
-  const handler = map[pathname];
+  const handler = map[pathname] || map["/Starred"];
+  const title = mapTitle[pathname] || mapTitle["/Starred"];
   return (
     <div>
-      <H1>{mapTitle[pathname]}</H1>
-      <Query query={handler.query(query)}>{render(handler.transformer)}</Query>
+      <H1>{title}</H1>
+      <Query query={handler.query(searchTerm)}>
+        {render(handler, searchTerm)}
+      </Query>
     </div>
   );
 };
