@@ -43,7 +43,6 @@ class Routes extends Component {
                 <Switch>
                   <Route path="/search" component={Repos} />
                   <Route path="/starred" component={Repos} />
-                  <Route component={Repos} />
                 </Switch>
               </ApolloProvider>
             )}

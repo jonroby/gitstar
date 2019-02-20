@@ -51,6 +51,7 @@ const Button = styled.button`
 class Navbar extends Component {
   onClick = () => {
     localStorage.removeItem("access_token");
+    this.props.history.push("/");
   };
 
   render() {
@@ -67,7 +68,13 @@ class Navbar extends Component {
               <img style={{ width: "45px" }} src={Octostar} />
             </Link>
 
-            {accessToken ? <Button>Logout</Button> : null}
+            {accessToken ? (
+              <Button onClick={this.onClick}>Logout</Button>
+            ) : (
+              <div style={{ visibility: "hidden" }}>
+                <button>Logout</button>
+              </div>
+            )}
           </Inner>
         </NavbarRow>
         {accessToken ? <Search /> : null}

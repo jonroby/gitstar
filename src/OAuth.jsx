@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import queryString from "query-string";
+import SearchButton from "./App";
+
+import "./App.css";
 
 const LOADING = "LOADING";
 const ERROR = "ERROR";
@@ -8,7 +12,7 @@ const READY = "READY";
 
 class OAuth extends Component {
   state = {
-    status: LOADING,
+    status: LOADING
   };
 
   componentDidMount() {
@@ -24,7 +28,7 @@ class OAuth extends Component {
     const { data: response } = await axios.post(
       "https://peaceful-meadow-82053.herokuapp.com",
       {
-        code,
+        code
       }
     );
 
@@ -43,14 +47,15 @@ class OAuth extends Component {
 
   render() {
     return (
-      <div>
-        <div>OAuth</div>
+      <div className="App">
         {this.state.status === "LOADING" ? <div>Loading...</div> : null}
         {this.state.status === "ERROR" ? (
           <div>An error occurred. Please try again.</div>
         ) : null}
         {this.state.status === "READY" ? (
-          <div>Please click here to go to site</div>
+          <Link to="/starred">
+            <SearchButton>Please click here to go to site</SearchButton>
+          </Link>
         ) : null}
       </div>
     );

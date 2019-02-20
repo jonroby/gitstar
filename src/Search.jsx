@@ -18,7 +18,7 @@ class Search extends Component {
   componentDidMount() {
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
-      this.props.router.push("/");
+      this.props.history.push("/");
     }
   }
 
