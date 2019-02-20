@@ -4,7 +4,7 @@ const transformer = data => {
   return { repos: data.search.nodes, pageInfo: data.search.pageInfo };
 };
 
-const fetchMoreObject = (searchTerm, cursor) => ({
+const fetchMoreObject = ({ searchTerm, cursor }) => ({
   query: query(searchTerm, cursor),
   updateQuery: (previousResult, { fetchMoreResult }) => {
     const repos = previousResult.search.nodes;
@@ -24,7 +24,7 @@ const query = (searchTerm, cursor) => {
   const cursorParameter = cursor ? `, after: "${cursor}"` : "";
   return gql`
   query {
-    search(query: "${searchTerm}", first: 3, type: REPOSITORY ${cursorParameter}) {
+    search(query: "${searchTerm}", first: 10, type: REPOSITORY ${cursorParameter}) {
       pageInfo {
         endCursor
         hasNextPage

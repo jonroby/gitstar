@@ -24,7 +24,7 @@ const query = cursor => {
   return gql`
 query {
       viewer   {
-        starredRepositories(ownedByViewer: false, first: 2, ${cursorParameter}) {
+        starredRepositories(ownedByViewer: false, first: 10, ${cursorParameter}) {
           pageInfo {
 	    startCursor
 
